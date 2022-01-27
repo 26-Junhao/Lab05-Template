@@ -6,26 +6,47 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
-    public GameObject ScoreText;
     public int coin;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+    private float scorevalue;
+
+    public float totalcoins;
+
+    public float timeleft;
+
+    public int timeRemaining;
+
+    public Text TimerText;
+    public GameObject ScoreText;
+
+    private float TimerValue;
 
     // Update is called once per frame
     void Update()
     {
-        
+        timeleft -= Time.deltaTime;
+        timeRemaining = Mathf.FloorToInt(timeleft % 60);
+        TimerText.text = "Timer : " + timeRemaining.ToString();
+
+        if(scorevalue == totalcoins)
+        {
+            if (timeleft >= TimerValue)
+            {
+                SceneManager.LoadScene("GameWinScene");
+            }
+        }
+        else if(timeleft <= 0)
+        {
+            SceneManager.LoadScene("GameLoseScene");
+        }
     }
 
     private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.tag == "Coin")
         {
-            coin += 10;
-            ScoreText.GetComponent<Text>().text = "Score: " + coin;
+            scorevalue += 10;
+            ScoreText.GetComponent<Text>().text = "Score : " + scorevalue;
             Destroy(collision.gameObject);
         }
 
@@ -34,5 +55,4 @@ public class PlayerScript : MonoBehaviour
             SceneManager.LoadScene("GameLoseScene");
         }
     }
-
 }
