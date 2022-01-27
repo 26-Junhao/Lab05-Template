@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
-    public void Restart()
+    public void Update()
     {
-        SceneManager.LoadScene("GameScene");
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("GameScene");
+        }
     }
 }
