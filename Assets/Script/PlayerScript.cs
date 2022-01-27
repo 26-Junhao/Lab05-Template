@@ -21,6 +21,8 @@ public class PlayerScript : MonoBehaviour
 
     private float TimerValue;
 
+    public GameObject particle;
+
     // Update is called once per frame
     void Update()
     {
@@ -47,6 +49,7 @@ public class PlayerScript : MonoBehaviour
         {
             scorevalue += 10;
             ScoreText.GetComponent<Text>().text = "Score : " + scorevalue;
+            Instantiate(particle, transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
         }
 
